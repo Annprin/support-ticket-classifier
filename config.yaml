@@ -1,0 +1,51 @@
+# Параметры данных и модели
+data:
+  path: "data/WA_Fn-UseC_-Telco-Customer-Churn.csv" # Путь к данным
+  target_column: "Churn"
+  test_size: 0.2
+  
+  # Определяем типы колонок для препроцессора
+  numeric_features:
+    - "tenure"
+    - "MonthlyCharges"
+    - "TotalCharges"
+    
+  categorical_features:
+    - "gender"
+    - "SeniorCitizen"
+    - "Partner"
+    - "Dependents"
+    - "PhoneService"
+    - "MultipleLines"
+    - "InternetService"
+    - "OnlineSecurity"
+    - "OnlineBackup"
+    - "DeviceProtection"
+    - "TechSupport"
+    - "StreamingTV"
+    - "StreamingMovies"
+    - "Contract"
+    - "PaperlessBilling"
+    - "PaymentMethod"
+
+model:
+  save_path: "models/churn_mlp_model"
+  preprocessor_path: "models/churn_mlp_model/preprocessor.joblib" # Сохраняем препроцессор вместе с моделью
+
+# Конфиг архитектуры НС
+architecture:
+  hidden_layers: [64, 32] # 2 скрытых слоя
+  dropout: 0.3
+  # input_size и output_size будут определены автоматически в коде
+
+# Параметры обучения
+training:
+  random_seed: 42
+  epochs: 20
+  batch_size: 32
+  learning_rate: 1.0e-4
+  
+# Маппинг для API
+labels_map:
+  0: "No"
+  1: "Yes"

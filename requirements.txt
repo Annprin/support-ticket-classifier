@@ -1,0 +1,12 @@
+# Основные библиотеки
+torch
+transformers
+pandas
+scikit-learn
+PyYAML
+tqdm
+joblib
+
+# Для Задания 3 (Тесты и Линтеры)
+pytest
+ruff

@@ -1,0 +1,15 @@
+{
+  "architectures": [
+    "ChurnMLP"
+  ],
+  "dropout": 0.3,
+  "dtype": "float32",
+  "hidden_layers": [
+    64,
+    32
+  ],
+  "input_size": 46,
+  "model_type": "ChurnMLP",
+  "output_size": 2,
+  "transformers_version": "4.57.1"
+}
