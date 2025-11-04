@@ -7,7 +7,7 @@ from tqdm.auto import tqdm
 from sklearn.metrics import accuracy_score, f1_score, precision_score
 import joblib
 
-from . import data_loader, model as model_loader, utils
+from . import data_loader, model as utils
 from .model import ChurnModelConfig, ChurnMLP
 
 logger = logging.getLogger(__name__)
