@@ -4,8 +4,7 @@ from torch.utils.data import DataLoader
 from torch.optim import AdamW
 from transformers import get_scheduler
 from tqdm.auto import tqdm
-from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
-import numpy as np
+from sklearn.metrics import accuracy_score, f1_score, precision_score
 import joblib
 
 from . import data_loader, model as model_loader, utils
