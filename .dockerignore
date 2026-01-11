@@ -1,0 +1,13 @@
+.git
+.venv
+__pycache__/
+*.pyc
+mlruns/
+.dvc/cache/
+data/
+reports/
+
+# If you sometimes have big raw files locally:
+*.csv
+*.pt
+*.pkl

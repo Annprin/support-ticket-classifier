@@ -1,0 +1,43 @@
+FROM pytorch/torchserve:latest
+
+WORKDIR /home/model-server
+
+USER root
+
+# системная библиотека для sklearn/libgomp
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgomp1 \
+    libglib2.0-0 \
+ && rm -rf /var/lib/apt/lists/*
+
+ENV LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libgomp.so.1
+
+# снижаем шанс TLS/OpenMP конфликтов + уменьшаем нагрузку
+ENV OMP_NUM_THREADS=1
+ENV OPENBLAS_NUM_THREADS=1
+ENV MKL_NUM_THREADS=1
+ENV NUMEXPR_NUM_THREADS=1
+
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+
+# 2) скопировать код проекта, чтобы handler мог импортировать src.*
+COPY src /home/model-server/src
+ENV PYTHONPATH=/home/model-server
+
+# 3) модельный архив и конфиг
+COPY model-store /home/model-server/model-store
+COPY torchserve/config.properties /home/model-server/config.properties
+
+EXPOSE 8080 8081 8082
+
+CMD ["torchserve", \
+     "--start", \
+     "--foreground", \
+     "--ncs", \
+     "--model-store", "/home/model-server/model-store", \
+     "--models", "mymodel=mymodel.mar", \
+     "--ts-config", "/home/model-server/config.properties"]
+
+

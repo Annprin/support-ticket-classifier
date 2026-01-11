@@ -3,3 +3,5 @@ data/WA_Fn-UseC_-Telco-Customer-Churn.csv
 __pycache__/
 models
 data/processed/
+mlruns/
+mlflow.db
