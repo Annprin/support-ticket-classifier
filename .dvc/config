@@ -1,4 +1,4 @@
 [core]
     remote = storage
 ['remote "storage"']
-    url = https://github.com/Annprin/support-ticket-classifier.git
+    url = gdrive://19iCzaE-ihSRx-bML2XS1esH0bWcBk-2d
