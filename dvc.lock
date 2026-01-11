@@ -1,0 +1,115 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python -m src.prepare --config config.yaml
+    deps:
+    - path: config.yaml
+      hash: md5
+      md5: b8d76e1a3dd7b7e06cea21c4ec12768e
+      size: 1308
+    - path: data/WA_Fn-UseC_-Telco-Customer-Churn.csv
+      hash: md5
+      md5: 0f9de68e012bd3aed5fa7cdc9fc421af
+      size: 977501
+    - path: src/config.py
+      hash: md5
+      md5: 2816ed4d4229d2c2daac4d3dc4b12785
+      size: 860
+    - path: src/data_loader.py
+      hash: md5
+      md5: b4c8d7f42afd7bfd1cbf5fa1eacb1b1c
+      size: 3256
+    - path: src/prepare.py
+      hash: md5
+      md5: 877ed70a1fdb515bc70e17111690c391
+      size: 1257
+    - path: src/utils.py
+      hash: md5
+      md5: c86b8b4a81659c7e66403e998234af84
+      size: 4752
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: f1b777210ef8be4e04b144d0feac59e4.dir
+      size: 265903
+      nfiles: 4
+  train:
+    cmd: python -m src.train --config config.yaml
+    deps:
+    - path: config.yaml
+      hash: md5
+      md5: b8d76e1a3dd7b7e06cea21c4ec12768e
+      size: 1308
+    - path: data/processed
+      hash: md5
+      md5: f1b777210ef8be4e04b144d0feac59e4.dir
+      size: 265903
+      nfiles: 4
+    - path: src/config.py
+      hash: md5
+      md5: 2816ed4d4229d2c2daac4d3dc4b12785
+      size: 860
+    - path: src/data_loader.py
+      hash: md5
+      md5: b4c8d7f42afd7bfd1cbf5fa1eacb1b1c
+      size: 3256
+    - path: src/model.py
+      hash: md5
+      md5: 76f1c9563f3e952b790a89a9fa9ba344
+      size: 2771
+    - path: src/train.py
+      hash: md5
+      md5: bf96b0bb08fbeb802c80d707f8f5b812
+      size: 4999
+    - path: src/utils.py
+      hash: md5
+      md5: c86b8b4a81659c7e66403e998234af84
+      size: 4752
+    outs:
+    - path: models/churn_mlp_model
+      hash: md5
+      md5: 7a4a3c2b47d86520b7ae0667fd6754b2.dir
+      size: 27895
+      nfiles: 3
+  evaluate:
+    cmd: python -m src.evaluate --config config.yaml
+    deps:
+    - path: config.yaml
+      hash: md5
+      md5: b8d76e1a3dd7b7e06cea21c4ec12768e
+      size: 1308
+    - path: data/processed
+      hash: md5
+      md5: f1b777210ef8be4e04b144d0feac59e4.dir
+      size: 265903
+      nfiles: 4
+    - path: models/churn_mlp_model
+      hash: md5
+      md5: 7a4a3c2b47d86520b7ae0667fd6754b2.dir
+      size: 27895
+      nfiles: 3
+    - path: src/config.py
+      hash: md5
+      md5: 2816ed4d4229d2c2daac4d3dc4b12785
+      size: 860
+    - path: src/data_loader.py
+      hash: md5
+      md5: b4c8d7f42afd7bfd1cbf5fa1eacb1b1c
+      size: 3256
+    - path: src/evaluate.py
+      hash: md5
+      md5: 9f76c98e8e4d0ced23576cc130830831
+      size: 1099
+    - path: src/model.py
+      hash: md5
+      md5: 76f1c9563f3e952b790a89a9fa9ba344
+      size: 2771
+    - path: src/utils.py
+      hash: md5
+      md5: c86b8b4a81659c7e66403e998234af84
+      size: 4752
+    outs:
+    - path: reports/metrics.json
+      hash: md5
+      md5: b981fe86d6c46c573f7ce7327cc864d4
+      size: 111
