@@ -5,7 +5,7 @@ stages:
     deps:
     - path: config.yaml
       hash: md5
-      md5: b8d76e1a3dd7b7e06cea21c4ec12768e
+      md5: 248010013eabebc140d9a60397fa105b
       size: 1308
     - path: data/WA_Fn-UseC_-Telco-Customer-Churn.csv
       hash: md5
@@ -38,7 +38,7 @@ stages:
     deps:
     - path: config.yaml
       hash: md5
-      md5: b8d76e1a3dd7b7e06cea21c4ec12768e
+      md5: 248010013eabebc140d9a60397fa105b
       size: 1308
     - path: data/processed
       hash: md5
@@ -68,7 +68,7 @@ stages:
     outs:
     - path: models/churn_mlp_model
       hash: md5
-      md5: 7a4a3c2b47d86520b7ae0667fd6754b2.dir
+      md5: ccc28f6ab93aa8d7138f0214a51a7e1e.dir
       size: 27895
       nfiles: 3
   evaluate:
@@ -76,7 +76,7 @@ stages:
     deps:
     - path: config.yaml
       hash: md5
-      md5: b8d76e1a3dd7b7e06cea21c4ec12768e
+      md5: 248010013eabebc140d9a60397fa105b
       size: 1308
     - path: data/processed
       hash: md5
@@ -85,7 +85,7 @@ stages:
       nfiles: 4
     - path: models/churn_mlp_model
       hash: md5
-      md5: 7a4a3c2b47d86520b7ae0667fd6754b2.dir
+      md5: ccc28f6ab93aa8d7138f0214a51a7e1e.dir
       size: 27895
       nfiles: 3
     - path: src/config.py
@@ -111,5 +111,5 @@ stages:
     outs:
     - path: reports/metrics.json
       hash: md5
-      md5: b981fe86d6c46c573f7ce7327cc864d4
+      md5: 57891f90bc4f01087ef2698a6da5d1df
       size: 111
