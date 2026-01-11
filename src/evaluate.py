@@ -4,7 +4,7 @@ import logging
 from torch.utils.data import DataLoader
 
 from src.config import load_config
-from src.utils import  load_processed_np, load_for_evaluate, validate
+from src.utils import  load_processed, load_for_evaluate, validate
 from src.data_loader import ChurnDataset
 
 logger = logging.getLogger(__name__)
@@ -20,8 +20,10 @@ def main():
     reports_dir.mkdir(exist_ok=True)
 
     model, preproc, device = load_for_evaluate(cfg, logger)
-    X_train, y_train, X_val, y_val = load_processed_np(processed_dir)
-    val_dataset = ChurnDataset(X_val, y_val)
+    X_train, y_train, X_val, y_val = load_processed(processed_dir)
+
+    X_val_processed = preproc.transform(X_val)
+    val_dataset = ChurnDataset(X_val_processed, y_val)
     val_loader = DataLoader(val_dataset, batch_size=cfg["training"]["batch_size"])
     metrics = validate(model, val_loader, device, cfg)
 

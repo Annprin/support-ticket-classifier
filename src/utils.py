@@ -5,6 +5,7 @@ import logging
 from typing import Dict
 from pathlib import Path
 import joblib
+import pandas as pd
 
 from .model import ChurnMLP
 from sklearn.metrics import accuracy_score, f1_score, precision_score
@@ -60,11 +61,11 @@ def save_processed_np(out_dir: str | Path, X_train, y_train, X_val, y_val) -> No
     np.save(out_dir / "X_val.npy", X_val)
     np.save(out_dir / "y_val.npy", y_val)
 
-def load_processed_np(processed_dir: str | Path):
+def load_processed(processed_dir: str | Path):
     processed_dir = Path(processed_dir)
-    X_train = np.load(processed_dir / "X_train.npy", allow_pickle=False)
+    X_train = pd.read_parquet(processed_dir / "train.parquet")
+    X_val = pd.read_parquet(processed_dir / "val.parquet")
     y_train = np.load(processed_dir / "y_train.npy", allow_pickle=False)
-    X_val = np.load(processed_dir / "X_val.npy", allow_pickle=False)
     y_val = np.load(processed_dir / "y_val.npy", allow_pickle=False)
     return X_train, y_train, X_val, y_val
 

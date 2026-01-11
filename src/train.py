@@ -6,9 +6,11 @@ from transformers import get_scheduler
 from tqdm.auto import tqdm
 import joblib
 from pathlib import Path
+import argparse
 
-from src.utils import validate, load_processed_np
-from . import data_loader, model as utils
+from src.utils import validate, load_processed, set_seed
+from src.config import load_config
+from . import data_loader
 from .model import ChurnModelConfig, ChurnMLP
 
 logger = logging.getLogger(__name__)
@@ -17,12 +19,12 @@ def train_model(config: dict, verbose: bool = True):
     """Основная функция для запуска обучения."""
     
     # 1. Установка seed
-    utils.set_seed(config['training']['random_seed'])
+    set_seed(config['training']['random_seed'])
     logger.info("Random seed установлен.")
     
     # 2. Загрузка и обработка данных
     processed_dir = Path(config["data"].get("processed_dir", "data/processed"))
-    X_train, y_train, X_val, y_val = load_processed_np(processed_dir)
+    X_train, y_train, X_val, y_val = load_processed(processed_dir)
 
     preprocessor = data_loader.create_preprocessor(config)
     X_train_processed = preprocessor.fit_transform(X_train)
@@ -105,6 +107,16 @@ def train_model(config: dict, verbose: bool = True):
     model.save_pretrained(save_path)
     logger.info(f"Модель сохранена в {save_path} (формат Hugging Face)")
 
-    joblib.dump(preprocessor, config['model']['preprocessor_path'])
-    logger.info(f"Препроцессор сохранен в {config['model']['preprocessor_path']}")
+    preprocessor_path = Path(config["model"]["preprocessor_path"])
+    # preprocessor_path.mkdir(parents=True, exist_ok=True)
+    joblib.dump(preprocessor, preprocessor_path)
+    logger.info(f"Препроцессор сохранен в {preprocessor_path}")
     return model
+
+if __name__ == "__main__":
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--config", default="config.yaml")
+    args = ap.parse_args()
+
+    cfg = load_config(args.config)
+    train_model(cfg)
