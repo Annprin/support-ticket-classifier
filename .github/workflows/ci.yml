@@ -4,9 +4,9 @@ name: Churn Predictor CI
 # Триггеры: запускать при push в master или pull request в master
 on:
   push:
-    branches: [ task_1 ]
+    branches: [ master ]
   pull_request:
-    branches: [ task_1 ]
+    branches: [ master ]
 
 jobs:
   build-and-test:
