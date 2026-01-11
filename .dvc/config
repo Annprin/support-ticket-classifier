@@ -1,4 +1,5 @@
 [core]
     remote = storage
 ['remote "storage"']
-    url = gdrive://19iCzaE-ihSRx-bML2XS1esH0bWcBk-2d
+    url = s3://support-ticket-classifier
+    endpointurl = https://storage.yandexcloud.net
