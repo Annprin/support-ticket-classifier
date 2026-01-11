@@ -40,3 +40,14 @@ Hidden 2: 32 нейрона + ReLU
 Output: 2 нейрона (Логиты для классов "No" и "Yes")
 
 Интеграция: Модель будет написана как кастомный класс, наследуемый от transformers.PreTrainedModel, что позволит использовать model.save_pretrained() и model.from_pretrained().
+
+## DVC (Yandex Object Storage)
+
+Set credentials via env vars:
+
+```bash
+AWS_ACCESS_KEY_ID="<YOUR_ACCESS_KEY_ID>"
+export AWS_SECRET_ACCESS_KEY="<YOUR_SECRET_ACCESS_KEY>"
+export AWS_DEFAULT_REGION="ru-central1"
+dvc pull
+```
