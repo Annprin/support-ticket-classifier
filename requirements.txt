@@ -6,6 +6,7 @@ scikit-learn
 PyYAML
 tqdm
 joblib
+safetensors
 
 # Для Задания 3 (Тесты и Линтеры)
 pytest

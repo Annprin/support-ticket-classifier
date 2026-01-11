@@ -1,0 +1,39 @@
+stages:
+  prepare:
+    cmd: python -m src.prepare --config config.yaml
+    deps:
+      - src/prepare.py
+      - src/data_loader.py
+      - src/utils.py
+      - src/config.py
+      - config.yaml
+      - data/WA_Fn-UseC_-Telco-Customer-Churn.csv
+    outs:
+      - data/processed
+
+  train:
+    cmd: python -m src.train --config config.yaml
+    deps:
+      - src/train.py
+      - src/model.py
+      - src/utils.py
+      - src/data_loader.py
+      - src/config.py
+      - config.yaml
+      - data/processed
+    outs:
+      - models/churn_mlp_model
+
+  evaluate:
+    cmd: python -m src.evaluate --config config.yaml
+    deps:
+      - src/evaluate.py
+      - src/utils.py
+      - src/model.py
+      - src/data_loader.py
+      - src/config.py
+      - config.yaml
+      - data/processed
+      - models/churn_mlp_model
+    metrics:
+      - reports/metrics.json
